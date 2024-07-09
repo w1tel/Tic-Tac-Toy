@@ -25,7 +25,7 @@ def register():
     name = input('Введите имя пользователя:')
     password = input("Введите пароль:")
     file = open(file=f'data/{name}.txt', mode='w', encoding='UTF-8')
-    file.write(f'{name} {password} {games_played}')
+    file.write(f'name-{name} password-{password} games_played-{games_played} victories-{victories} defeats-{defeats}')
     file.close()
     return {"is_logged": True, "name": name, "games_played": games_played, "victories": victories, "defeats": defeats,
             "ties": ties}
@@ -101,7 +101,7 @@ def computer_move(board):
     return board
 
 
-def greeting(name='player'):
+def greeting(name: str ='player'):
     print(f'Hey {name}!')
     print(f"Welcome to {GAME_TITLE}")
 
@@ -189,12 +189,13 @@ def main():
 
             if answer == '1':
                 print('Для игры с двумя игроками необходимо Войти или Зарегестрироваться второму игроку')
-                ans = int(input('1 - Войти \n2 - Зарегестрироваться'))
+                print('1 - Войти \n2 - Зарегестрироваться')
+                user_choice = int(input('Ваш выбор:'))
 
-                if ans == '1':
+                if user_choice == '1':
                     log_in()
-                elif ans == "2":
-                    player_info = register()
+                elif user_choice == "2":
+                    player_info = register() # Регестрируем второго игрока
                     is_logged_in = player_info['is_logged']
                     player2_name = player_info['name']
                     player2_victories = player_info['victories']
